@@ -1,4 +1,4 @@
-package com.evertonfraga.aula1.aula1;
+package com.evertonfraga.course;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
