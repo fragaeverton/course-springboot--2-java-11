@@ -1,8 +1,10 @@
 package com.evertonfraga.course.config;
 
+import com.evertonfraga.course.entities.Category;
 import com.evertonfraga.course.entities.Order;
 import com.evertonfraga.course.entities.User;
 import com.evertonfraga.course.entities.enums.OrderStatus;
+import com.evertonfraga.course.repositories.CategoryRepository;
 import com.evertonfraga.course.repositories.OrderRepository;
 import com.evertonfraga.course.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +25,17 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
     @Override
     public void run(String... args) throws Exception {
+
+        Category cat1 = new Category(null, "Electronics");
+        Category cat2 = new Category(null, "Books");
+        Category cat3 = new Category(null, "Computers");
+
         User u1 = new User(null,"Everton","everton@everton","11111","pass");
         User u2 = new User(null,"Larissa","larissa@everton","122221","pass2");
 
@@ -34,6 +44,7 @@ public class TestConfig implements CommandLineRunner {
         Order o3 = new Order(null, Instant.parse("2019-07-22T15:22:22Z"),OrderStatus.WAITING_PAYMENT, u1);
         Order o4 = new Order(null, Instant.parse("2021-04-22T17:16:10Z"),OrderStatus.CANCELED, u2);
 
+        categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
         userRepository.saveAll(Arrays.asList(u1,u2));
         orderRepository.saveAll(Arrays.asList(o1,o2,o3,o4));
     }
