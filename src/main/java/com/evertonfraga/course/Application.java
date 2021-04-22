@@ -3,6 +3,7 @@ package com.evertonfraga.course;
 import com.evertonfraga.course.config.TestConfig;
 import com.evertonfraga.course.repositories.UserRepository;
 import com.evertonfraga.course.resources.UserResource;
+import com.evertonfraga.course.services.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
