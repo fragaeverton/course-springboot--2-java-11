@@ -2,8 +2,11 @@ package com.evertonfraga.course.services;
 
 import com.evertonfraga.course.entities.User;
 import com.evertonfraga.course.repositories.UserRepository;
+import com.evertonfraga.course.services.exceptions.DatabaseException;
 import com.evertonfraga.course.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.nio.file.ReadOnlyFileSystemException;
@@ -30,7 +33,14 @@ public class UserService  {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        try{
+            repository.deleteById(id);
+        }catch (EmptyResultDataAccessException e){
+            //e.printStackTrace();
+            throw new ResourceNotFoundException(id);
+        }catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
     public User update(Long id, User obj){
         User entity = repository.getOne(id);
